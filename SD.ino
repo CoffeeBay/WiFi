@@ -4,7 +4,7 @@
 
 int curTimeSec = 0;
 
-SoftwareSerial equalizerSerial(2, 5);   //RX, TX
+SoftwareSerial lyricsSerial(2, 5);   //RX, TX
 
 bool isPlaying = false;
 
@@ -42,7 +42,7 @@ void playMusic(char c) {
   readLyric(&nextShowLyric.timeSec, nextShowLyric.lyric);
   Serial.println(nowShowLyric.lyric);
   while (1) {
-    equalizerSerial.write('1');
+    lyricsSerial.write('1');
     Serial.write('1');
     delay(100);
   }
