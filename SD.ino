@@ -1,12 +1,4 @@
-#include <SPI.h>
-#include <SD.h>
-#include <SoftwareSerial.h>
-
 int curTimeSec = 0;
-
-SoftwareSerial lyricsSerial(2, 5);   //RX, TX
-
-bool isPlaying = false;
 
 struct Lyric {
   int timeSec;
@@ -41,11 +33,6 @@ void playMusic(char c) {
   readLyric(&nowShowLyric.timeSec, nowShowLyric.lyric);
   readLyric(&nextShowLyric.timeSec, nextShowLyric.lyric);
   Serial.println(nowShowLyric.lyric);
-  while (1) {
-    lyricsSerial.write('1');
-    Serial.write('1');
-    delay(100);
-  }
   
   isPlaying = true;
   curTimeSec = 0;

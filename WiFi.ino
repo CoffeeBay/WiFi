@@ -1,11 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SoftwareSerial.h>
 
 const char *ssid = "bangul";
 const char *password = "qwertyuiop";
 
 ESP8266WebServer server(80);
+
+SoftwareSerial lyricsSerial(2, 5);   //RX, TX
+bool isPlaying = false;
 
 void handleRoot() {
   server.send ( 200, "text/html", "root" );
@@ -13,10 +19,16 @@ void handleRoot() {
 
 void setup ( void ) {
   Serial.begin ( 9600 );
-  equalizerSerial.begin(9600);
+  lyricsSerial.begin(9600);
   if (!SD.begin(4)) {
     return;
   }
+  while (1) {
+    lyricsSerial.write('1');
+    Serial.write('1');
+    delay(100);
+  }
+  
   startWiFi();
 }
 
